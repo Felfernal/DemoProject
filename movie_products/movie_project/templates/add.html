@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block body %}
+<style>
+    label{
+    color:white;
+    }
+</style>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12" style="text-align: center;">
+            <br>
+            <label><h1>Enter Details Of New Movie</h1></label><br><br>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-5">
+        </div>
+        <div class="col-md-7">
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+
+                    <br><br>
+                    <label>Movie Name:</label><br>
+                    <input type="text" name="name" placeholder="Enter Movie Name..."><br><br>
+                    <label>Description:</label><br>
+                    <input type="text" name="desc" placeholder="Enter Description..."><br><br>
+                    <label>Year:</label><br>
+                    <input type="number" name="year" placeholder="Enter Release Year..."><br><br>
+                    <label>Genre:</label><br>
+                    <input type="text" name="genre" placeholder="Enter Genre..."><br><br>
+                    <label>Thumbnail:</label><br>
+                    <input type="file" name="img" placeholder="Upload Thumbnail..." style="color:white;"><br><br>
+                    <input type="submit" value="Add Movie..." style="color:black;">
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
