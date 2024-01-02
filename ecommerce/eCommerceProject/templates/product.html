@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block metadescription %}
+    {{product.desc|truncatewords:155}}
+{% endblock %}
+{% block title %}
+    {% if category %}
+        {{product.name}} - VS Store
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+<div class="row my_prod_row_class">
+    <div class="mx_auto">
+        <p> | <a href="{{product.category.get_url}}">{{product.category}}</a> | {{product.name}}</p>
+    </div>
+</div>
+<br>
+<div class="container">
+    <div class="row">
+        <div class="col-12 col-sm-12 col-md-12 col-lg-8">
+            <div style="min-width:18rem;">
+                <img src="{{product.img.url}}" alt="{{product.name}}" height="500px" width="500px">
+            </div>
+        </div>
+        <div class="col-12 col-sm-12 col-md-12 col-lg-4">
+            <h1 class="my_prod_title">{{product.name}}</h1>
+            <h5>&#8377;{{product.price}}</h5>
+            <br>
+            <h4 class="my_prod_desc"><u>Product Description</u></h4>
+            <h6 class="text-justify my_prod_text">{{product.desc}}</h6>
+            <br>
+            {% if product.stock <= 0 %}
+                <h5 class="text-justify my_prod_text" style="color:red"><b>Out of Stock</b></h5>
+            {% else %}
+                <a class="btn btn-primary" href="{% url 'cart:add_cart' product.id %}">Add to Cart</a>
+            {% endif %}
+        </div>
+    </div>
+</div>
+<br>
+<br>
+{% endblock %}

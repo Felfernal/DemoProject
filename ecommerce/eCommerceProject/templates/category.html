@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block metadescription %}
+    {% if category %}
+        {{category.description|truncatewords:155 }}
+    {% else %}
+        Welcome to VS Online Store, your one shop stop for all your needs this year...
+    {% endif %}
+{% endblock %}
+{% block title %}
+    {% if category %}
+        {{category.name}} - VS Online Store
+    {% else %}
+        See our New Xmas Collections - VS Online Store
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+    <div>
+        {% if category %}
+            <img class="my_image" src="{{category.img.url}}" alt="{{category.name}}" height="800px" width="1900px" style="object-fit:contain;">
+    <br>
+        {% else %}
+            <div>
+                <img class="my_image my_image_padding" src="{% static 'img/banner.png' %}" alt="Our Products">
+            </div>
+            <br>
+            <br>
+            <div>
+                <h1 class="text-center my_title"><u>Our Collections</u></h1>
+                <br>
+                <p class="text-center">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                <br>
+            </div>
+        {% endif %}
+    </div>
+    {% if category %}
+        <div>
+            <div class="row my_row_class">
+                <div class="mx-auto">
+                    <p align="center"><a href="{% url 'shopping_app:allProdCateg' %}">Our Collection</a></p>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+        <br>
+    <div>
+        <h1 class="text-center my_title"><u>{{category.name}}</u></h1>
+        <h3 class="text-center">{{category.desc}}</h3>
+        <br>
+    </div>
+
+    <div>
+        <div class="container">
+            <div class="row mx-auto">
+                {% for i in products.object_list %}
+                    <div class="my_bottom_margin col-9 col-sm-12 col-md-4 col-lg-4">
+                        <div class="card text-center" style="min-width:18rem;">
+                            <a href="{{i.get_url}}"><img class="card_img_top my_image" src="{{i.img.url}}" alt="{{i.name}}"></a>
+                            <div class="card-body">
+                                <br>
+                                <h4 align="center">{{i.name}}</h4>
+                                <p align="center">&#8377;{{i.price}}</p>
+                                <br>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="mx_auto">
+                {% if products.paginator.num_pages > 1 %}
+                    <hr>
+                    <div class="text-center">
+                        {% for pg in products.paginator.page_range %}
+                            <a href="?page={{pg}}" class="btn btn-light btn-sm {% if products.number == pg %} active {% endif %}">{{pg}}</a>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+            <br>
+        </div>
+    </div>
+{% endblock %}
